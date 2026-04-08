@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders dashboard controls', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText(/dashboard/i)).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /local users/i })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /users api/i })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /fake api posts/i })).toBeInTheDocument();
 });

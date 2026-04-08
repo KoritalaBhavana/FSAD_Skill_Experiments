@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 
 function FakePostList({ setPage }) {
   const [posts, setPosts] = useState([]);
@@ -7,10 +6,11 @@ function FakePostList({ setPage }) {
   const [userId, setUserId] = useState("all");
 
   const fetchPosts = () => {
-    axios.get("https://dummyjson.com/posts")
-      .then(res => {
-        setPosts(res.data.posts);
-        setFilteredPosts(res.data.posts);
+    fetch("https://dummyjson.com/posts")
+      .then(res => res.json())
+      .then(data => {
+        setPosts(data.posts);
+        setFilteredPosts(data.posts);
       });
   };
 
@@ -25,7 +25,7 @@ function FakePostList({ setPage }) {
     if (value === "all") {
       setFilteredPosts(posts);
     } else {
-      setFilteredPosts(posts.filter(p => p.userId == value));
+      setFilteredPosts(posts.filter(p => p.userId === Number(value)));
     }
   };
 
